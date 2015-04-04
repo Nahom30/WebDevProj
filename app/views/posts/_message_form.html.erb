@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+
+<%= form_tag({:controller => "posts", :action => "create"}, ) do %>
+
+
+  <%= label_tag(:message, "What's on your mind?") %><br />
+  <%= text_area_tag(:message, nil, :size => "90x6") %><br />
+  <%= submit_tag("Submit") %>
+<% end %>
+<% end %>
