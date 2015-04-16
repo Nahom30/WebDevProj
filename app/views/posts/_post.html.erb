@@ -1,5 +1,21 @@
 
 <div class="post-block">
-    <p><b>Posted <%= time_ago_in_words(post.created_at) %> ago</b></p>
-    <p><%= post.message %></p>
+<li id="post-<%= post.id %>">
+
+  <span class="user"><%= link_to post.user.username, post.user %></span>
+  <span class="content"><p><%= post.message %></p></span>
+  <span class="timestamp">
+    <p><b>Posted <%= time_ago_in_words(post.created_at) %> ago</b>
+
+      <%= link_to "delete",
+                  post,
+                  :method => :delete,
+
+                  :data => { confirm: "You sure?" } %>
+    </p>
+
+  </span>
+</li>
 </div>
+
+

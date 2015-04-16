@@ -4,7 +4,7 @@
     table, th, td {
         border: 1px solid black;
         width:30%
-    align:center
+        align:center
     }
 </style>
 
@@ -12,22 +12,27 @@
   <thead>
   <tr>
     <th>Id</th>
+    <th>Username</th>
     <th>Email</th>
-    <th colspan="2"></th>
+    <th>Action</th>
+    <th colspan="4"></th>
   </tr>
   </thead>
 
-  <tbody>
-  <% @users.each do |user| %>
+    <tbody>
+    <% @users.each do |user| %>
+    
+      <% if user.id != current_user.id %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.username %></td>
+          <td><%=user.email%></td>
+          <td><%= link_to "Follow", friendships_path(:followed_id => user, :follower_id=>current_user.id), :method => "post" %></td>
+        </tr>
+    <% end %>
+    <% end %>
 
-      <% if user.email != current_user.email %>
-          <tr>
-            <td><%= user.id %></td>
-            <td><%=user.email%></td>
-            <td><%= link_to "Follow", friendships_path(:friend_id => user), :method => :post %></td>
-          </tr>
-      <% end %>
-  <% end %>
+    </tbody>
+    </table>
 
-  </tbody>
-</table>
+    

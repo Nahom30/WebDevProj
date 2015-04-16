@@ -1,10 +1,14 @@
 <% if user_signed_in? %>
 
-<%= form_tag({:controller => "posts", :action => "create"}, ) do %>
+<%= form_tag({:controller => "posts", :action => "create", :user_id=>current_user }) do %>
 
 
-  <%= label_tag(:message, "What's on your mind?") %><br />
+  <%= label_tag(:message, "Please put your post here:") %><br />
   <%= text_area_tag(:message, nil, :size => "90x6") %><br />
   <%= submit_tag("Submit") %>
 <% end %>
 <% end %>
+
+<%= link_to "Make Friends", users_path  %>
+<%= link_to "Following", { :controller => "users", :action => "show", :id => current_user } %>
+<%= link_to "Followers", { :controller => "users", :action => "show", :id => current_user } %>

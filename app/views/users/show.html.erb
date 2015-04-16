@@ -1,14 +1,21 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @user %>
-</p>
-
-<%= link_to 'Edit'  %> |
-<%= link_to 'Back' %>
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.username %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @user.posts.any? %>
+        <h3>Microposts (<%= @user.posts.count %>)</h3>
+        <ol class="posts">
+          <%= render @posts %>
+        </ol>
+        <%= will_paginate @posts %>
+    <% end %>
+  </div>
+</div>

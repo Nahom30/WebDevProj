@@ -4,10 +4,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+
+    @user = User.find(params[:id])
+    @posts = @user.posts.paginate(page: params[:page])
   end
 
-end
+
 
 def create
   @user = User.new(user_params)
@@ -45,6 +47,22 @@ def destroy
   end
 end
 
+
+def following
+  @title = "Following"
+  @user  = User.find(params[:id])
+  @users = @user.following.paginate(page: params[:page])
+  render 'show_follow'
+end
+
+def followers
+  @title = "Followers"
+  @user  = User.find(params[:id])
+  @users = @user.followers.paginate(page: params[:page])
+  render 'show_follow'
+end
+
+
 private
 # Use callbacks to share common setup or constraints between actions.
 def set_user
@@ -54,5 +72,7 @@ end
 # Never trust parameters from the scary internet, only allow the white list through.
 def user_params
   params.require(:user).permit(:name, :password)
+end
+
 end
 

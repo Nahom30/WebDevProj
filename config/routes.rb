@@ -5,10 +5,17 @@
 
   devise_for :admins
   get 'admin/index'
+
   devise_for :users, :path=>'my'
+
+
   resources :posts
   resources :friendships
-  resources :users
+  resources :users do
+    member do
+      get :following,:followers
+    end
+  end
 
     match ':controller/:action/:id', via: [:get, :post]
 

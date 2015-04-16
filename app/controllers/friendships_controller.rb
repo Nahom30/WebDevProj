@@ -1,7 +1,12 @@
 
 class FriendshipsController < ApplicationController
+
+  def index
+  end
+
   def create
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
+    #@friendship = Friendship.new(friendship_params):followed_id => params[:followed_id]
+    @friendship = current_user.friendships.create(:followed_id => params[:followed_id],:follower_id => params[:follower_id])
     if @friendship.save
       flash[:notice] = "Added friend."
       redirect_to root_url
@@ -17,4 +22,13 @@ class FriendshipsController < ApplicationController
     flash[:notice] = "Successfully destroyed friendship."
     redirect_to root_url
   end
+
+
+
+end
+
+private
+
+def friendship_params
+  params.require(:friendship).permit(:followed_id, :followed_id)
 end
