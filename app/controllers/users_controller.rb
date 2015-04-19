@@ -49,14 +49,14 @@ end
 
 
 def following
-  @title = "Following"
+  @title = "List of people I am following"
   @user  = User.find(params[:id])
   @users = @user.following.paginate(page: params[:page])
   render 'show_follow'
 end
 
 def followers
-  @title = "Followers"
+  @title = "List of people that are following me"
   @user  = User.find(params[:id])
   @users = @user.followers.paginate(page: params[:page])
   render 'show_follow'

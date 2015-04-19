@@ -4,18 +4,32 @@ class User < ActiveRecord::Base
 
   has_many :friendships, foreign_key: "follower_id", dependent: :destroy
   has_many :posts, dependent: :destroy
-  has_many :active_friendships,  :through => :friendships,
+  has_many :active_friendships,
+           :class_name => "Friendship",  
            foreign_key: "follower_id",
            dependent:   :destroy
-  has_many :passive_friendships, :through => :friendships,
+  has_many :passive_friendships,
+           :class_name => "Friendship",
            foreign_key: "followed_id",
            dependent:   :destroy
-  has_many :follower, through: :active_friendships
-  has_many :followed, through: :passive_friendships
+
+  has_many :following, through: :active_friendships, source: :followed
+  has_many :followers, through: :passive_friendships, source: :follower
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
 
+  def follow(other_user)
+    active_friendships.create(followed_id: other_user.id)
+  end
 
+  def unfollow(other_user)
+    active_friendships.create(followed_id: other_user.id).destroy
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+  
 end

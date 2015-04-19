@@ -5,13 +5,13 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    #@friendship = Friendship.new(friendship_params):followed_id => params[:followed_id]
-    @friendship = current_user.friendships.create(:followed_id => params[:followed_id],:follower_id => params[:follower_id])
-    if @friendship.save
-      flash[:notice] = "Added friend."
+    user_to_follow = User.find(params[:followed_id])
+    if current_user.following?(user_to_follow)
+      flash[:alert] = "Already following this user."
       redirect_to root_url
     else
-      flash[:error] = "Error occurred when adding friend."
+      current_user.follow(user_to_follow)
+      flash[:notice] = "Yay! You have new friend."
       redirect_to root_url
     end
   end
