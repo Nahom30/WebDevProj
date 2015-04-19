@@ -48,19 +48,34 @@ def destroy
 end
 
 
-def following
-  @title = "List of people I am following"
-  @user  = User.find(params[:id])
-  @users = @user.following.paginate(page: params[:page])
-  render 'show_follow'
-end
+    def following
+      @title = "Following"
+      @user  = User.find(params[:id])
+      @users = @user.following.paginate(page: params[:page])
+      render 'show_follow'
+    end
 
-def followers
-  @title = "List of people that are following me"
-  @user  = User.find(params[:id])
-  @users = @user.followers.paginate(page: params[:page])
-  render 'show_follow'
-end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+
+  end
+
+
+  def following?(other_user)
+    friendships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    friendships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    friendships.find_by_followed_id(other_user.id).destroy
+  end
 
 
 private

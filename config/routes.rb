@@ -15,6 +15,12 @@
     member do
       get :following,:followers
     end
+    collection do
+      get 'follow'
+      get 'unfollow'
+      get 'followers'
+      get 'following'
+      end
   end
 
     match ':controller/:action/:id', via: [:get, :post]

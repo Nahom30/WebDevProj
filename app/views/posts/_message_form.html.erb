@@ -10,5 +10,5 @@
 <% end %>
 
 <%= link_to "Make Friends", users_path  %>
-<%= link_to "Following", { :controller => "users", :action => "following", :id => current_user} %>
-<%= link_to "Followers", { :controller => "users", :action => "followers", :id => current_user } %>
+<%= link_to "Following", { :controller => "users", :action => "following", :method=> "post", :id => current_user } %>
+<%= link_to "Followers", { :controller => "users", :action => "followers", :method=> "post", :id => current_user } %>

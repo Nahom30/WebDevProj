@@ -29,14 +29,13 @@ class PostsController < ApplicationController
   end
 
 
-
-
   def destroy
+    @post = Post.find(params[:id])
     @post.destroy
-    @foo=@post.user_id
-    flash[:success] = "Post deleted"
-    redirect_to posts_path(foo_param: @foo), notice: 'Todo item was successfully destroyed.'
+    redirect_to root_url
   end
+
+
 
 
 
