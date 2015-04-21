@@ -22,6 +22,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+   def follow(other_user)
+     active_friendships.create(followed_id: other_user.id)
+   end
+
+  def unfollow(other_user)
+       active_friendships.create(followed_id: other_user.id).destroy
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
 
 
 end
