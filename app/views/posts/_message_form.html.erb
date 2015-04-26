@@ -1,15 +1,16 @@
 <% if user_signed_in? %>
-
+<div class="row">
 <%= form_tag({:controller => "posts", :action => "create", :user_id=>current_user }) do %>
 
 
   <%= label_tag(:message, "Please put your post here:") %><br />
-  <%= text_area_tag(:message, nil, :size => "90x6") %><br />
-  <%= submit_tag("Submit") %>
+  <%= text_area_tag(:message, nil, :size => "50x4") %><br />
+  <%= submit_tag "Submit", class: 'btn btn-primary' %>
 <% end %>
+</div>
 <% end %>
 
-<%= link_to "Make Friends", users_path  %>
-<%= link_to "Following", { :controller => "users", :action => "following", :method=> "post", :id => current_user } %>
-<%= link_to "Followers", { :controller => "users", :action => "followers", :method=> "post", :id => current_user } %>
+
+
+
 
