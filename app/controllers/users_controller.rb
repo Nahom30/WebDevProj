@@ -75,8 +75,19 @@ end
     friendships.create!(followed_id: other_user.id)
   end
 
-  def unfollow!(other_user)
-    friendships.find_by_followed_id(other_user.id).destroy
+  def unfollow
+    other_user = User.find(params[:id])
+    if other_user
+      friendship = Friendship.find_by_followed_id(other_user.id)
+      if friendship
+        friendship.destroy
+        flash[:notice] = "You have unfollowed #{other_user.username}."
+      else
+        flash[:notice] = "Nothing to do here. You are not following #{other_user.username}"
+      end
+    end
+
+    redirect_to users_url
   end
 
 

@@ -15,7 +15,7 @@
     <th>Username</th>
     <th>Email</th>
     <th>Action</th>
-    <th colspan="4"></th>
+    <th colspan="5"></th>
   </tr>
   </thead>
 
@@ -29,11 +29,13 @@
           <td><%= user.username %></td>
           <td><%=user.email%></td>
           <td><%= link_to "Follow", friendships_path(:followed_id => user, :follower_id=>current_user.id), :method => "post" %></td>
+          <td><%= link_to "UnFollow", unfollow_user_path(:id => user), :method => "get" %></td>
         </tr>
     <% end %>
     <% end %>
 
     </tbody>
     </table>
+    
 
     

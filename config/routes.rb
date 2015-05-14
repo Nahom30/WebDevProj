@@ -13,13 +13,14 @@
   resources :friendships
   resources :users do
     member do
-      get :following,:followers
+      get :following,:followers, :unfollow
     end
     collection do
       get 'follow'
       get 'unfollow'
       get 'followers'
       get 'following'
+      
       end
   end
 
